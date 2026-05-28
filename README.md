@@ -1,79 +1,81 @@
 # Sporty Sportsbook QA Framework
 
-Framework de automatización end‑to‑end diseñado para plataformas de *sportsbook*, construido con **Selenium**, **Pytest** y **Requests**.  
-Incluye arquitectura Page Object Model, pruebas UI y API, configuración por entornos y validaciones reales del dominio de apuestas.
+Framework de automatización para el flujo **Single Bet Placement** del assignment de Sportsbook.  
+Diseñado con foco en **claridad, mantenibilidad y validación de reglas de negocio reales** del dominio de apuestas.
+
+Incluye:
+- Pruebas **UI** con Selenium  
+- Pruebas **API** con Requests  
+- Arquitectura **Page Object Model**  
+- Configuración por entornos  
+- Validaciones de negocio: stake, selección, suspensión, match integrity  
 
 ---
 
 ## 🚀 Tecnologías utilizadas
-- **Python 3.x**
-- **Selenium WebDriver**
-- **Pytest**
-- **Requests**
-- **Page Object Model (POM)**
-- **python-dotenv** para configuración
-- **ChromeDriver** (modo headless)
+
+- Python 3.x  
+- Selenium WebDriver  
+- Pytest  
+- Requests  
+- Page Object Model (POM)  
+- python-dotenv para configuración  
+- ChromeDriver (headless)  
 
 ---
 
 ## 📂 Estructura del proyecto
 
+```
 sporty-sportsbook-qa-framework/
-
-│
-
-├── tests/
-
-│   ├── ui/
-
-│   │   └── test_login.py
-
-│   ├── api/
-
-│   │   └── test_healthcheck.py
-
-│   └── conftest.py
-
-│
-├── pages/
-│   └── login_page.py
-
 │
 ├── config/
 │   └── settings.py
-
 │
-├── utils/
-│   └── helpers.py
-
+├── pages/
+│   └── match_card_page.py
 │
-├── requirements.txt
-
+├── tests/
+│   ├── ui/
+│   │   ├── test_select_odds.py
+│   │   ├── test_stake_validation_ui.py
+│   │   └── test_suspension_ui.py
+│   └── api/
+│       ├── test_place_bet_validation.py
+│       ├── test_stake_rules.py
+│       ├── test_selection_rules.py
+│       ├── test_match_rules.py
+│       └── test_event_suspension_rules.py
+│
+├── test_plan.md
+├── execution_report.md
+├── bug_reports.md
+├── strategy_and_recommendations.md
+│
 ├── pytest.ini
-
+├── requirements.txt
 └── README.md
 
 
-
+```
 ---
 
 ## 🧩 Arquitectura
 
-El framework sigue principios de:
+### **UI — Page Object Model**
+- Componentes desacoplados  
+- Selectores estables usando `data-testid`  
+- Métodos reutilizables para interacción con cuotas y tarjetas de partido  
 
-- **Modularidad**
-- **Escalabilidad**
-- **Separación de responsabilidades**
-- **Reutilización de componentes**
+### **API — Requests**
+- Validaciones de negocio críticas  
+- Fixtures para headers, base URL y matches  
+- Tests rápidos, deterministas y de bajo mantenimiento  
 
-### UI  
-Implementado con Page Object Model para mantener el código limpio y mantenible.
-
-### API  
-Pruebas ligeras y rápidas con Requests para validar endpoints críticos.
-
-### Configuración  
-Variables de entorno gestionadas con `.env` y cargadas desde `settings.py`.
+### **Configuración**
+- Variables gestionadas con `.env`  
+- Cargadas desde `settings.py`  
+- Permite cambiar entorno sin modificar código  
 
 ---
 
@@ -91,23 +93,20 @@ pytest
 pytest tests/ui
 
 
-### Ejecutar solo API
-pytest tests/api
-
-
 ---
 
-## 🎯 Casos reales de sportsbook incluidos
+## 🎯 Validaciones de sportsbook incluidas
 
-El framework incluye validaciones específicas del dominio, como:
+- Selección de cuotas (HOME / DRAW / AWAY)  
+- Stake mínimo (€1.00)  
+- Stake máximo (€100.00)  
+- Precisión de stake (máx. 2 decimales)  
+- Suspensión por kickoff pasado  
+- Selección inválida  
+- matchId inválido o inexistente  
+- Receipt consistency (manual)  
 
-- Verificación de cuotas  
-- Validación de mercados disponibles  
-- Estados de eventos (pre‑match, live, suspended)  
-- Límites de apuesta mínima/máxima  
-- Reglas de settlement  
-
-Esto demuestra conocimiento real del sector y te diferencia de un QA genérico.
+Estas pruebas cubren las reglas fundamentales del dominio sportsbook.
 
 ---
 
@@ -115,9 +114,9 @@ Esto demuestra conocimiento real del sector y te diferencia de un QA genérico.
 
 - Integración con Allure Reports  
 - Dockerización del entorno  
+- Mocking de API para escenarios edge  
 - Tests de regresión para mercados complejos  
 - Integración con CI/CD (GitHub Actions)  
-- Mocking de APIs para escenarios edge  
 
 ---
 
@@ -125,4 +124,6 @@ Esto demuestra conocimiento real del sector y te diferencia de un QA genérico.
 
 **Rafael Ordóñez Morales**  
 QA Lead / QA Automation Engineer  
-Especializado en plataformas sportsbook y automatización escalable.
+Especializado en plataformas sportsbook y automatización escalable.  
+
+
