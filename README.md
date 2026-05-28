@@ -19,26 +19,40 @@ Incluye arquitectura Page Object Model, pruebas UI y API, configuración por ent
 ## 📂 Estructura del proyecto
 
 sporty-sportsbook-qa-framework/
+
 │
+
 ├── tests/
+
 │   ├── ui/
+
 │   │   └── test_login.py
+
 │   ├── api/
+
 │   │   └── test_healthcheck.py
+
 │   └── conftest.py
+
 │
 ├── pages/
 │   └── login_page.py
+
 │
 ├── config/
 │   └── settings.py
+
 │
 ├── utils/
 │   └── helpers.py
+
 │
 ├── requirements.txt
+
 ├── pytest.ini
+
 └── README.md
+
 
 
 ---
