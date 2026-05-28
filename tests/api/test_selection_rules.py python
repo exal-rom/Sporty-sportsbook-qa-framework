@@ -1,0 +1,39 @@
+import requests
+import json
+
+
+def test_reject_missing_selection(api_base, api_headers, matches):
+    match = matches[0]
+
+    payload = {
+        "matchId": match["id"],
+        "stake": 10
+    }
+
+    response = requests.post(
+        f"{api_base}/place-bet",
+        headers=api_headers,
+        data=json.dumps(payload)
+    )
+
+    assert response.status_code == 422
+    assert "selection" in response.json()["message"].lower()
+
+
+def test_reject_invalid_selection(api_base, api_headers, matches):
+    match = matches[0]
+
+    payload = {
+        "matchId": match["id"],
+        "selection": "INVALID",
+        "stake": 10
+    }
+
+    response = requests.post(
+        f"{api_base}/place-bet",
+        headers=api_headers,
+        data=json.dumps(payload)
+    )
+
+    assert response.status_code == 422
+    assert "invalid" in response.json()["message"].lower()
